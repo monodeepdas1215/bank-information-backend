@@ -10,14 +10,7 @@ api = Blueprint('banks_api', __name__, url_prefix='/api')
 @api.route('/banks/<ifsc>', methods=['GET'])
 @authenticated_access
 def get_banks(ifsc):
-    # pprint.pprint(request.headers)
-    #
-    # if request.authorization:
-    #     print("Authorization found. Printing authorization details")
-    #     print(request.authorization["username"])
-    #     print(request.authorization["password"])
-    # else:
-    #     print("Authorization not found")
+
     try:
         # reading the request arguments
         offset = request.args.get('offset', 0)

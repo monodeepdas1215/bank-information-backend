@@ -33,11 +33,7 @@ def login():
 def register_new_user():
     try:
 
-        print("register user request")
-
         body = request.json
-
-        print(body)
 
         if not body:
             return jsonify({
@@ -56,7 +52,7 @@ def register_new_user():
 
         result = register_user(body["username"], body["password"])
 
-        return jsonify(result)
+        return jsonify(result), 201
 
     except:
         traceback.print_exc()
