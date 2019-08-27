@@ -23,8 +23,13 @@ def authenticate_user(username: str, password: str):
 
 
 def register_user(username, password):
+
+    print("register user service")
+
     # creating user in db
     result = create_user(username, encrypt_password(password))
+
+    print(result)
 
     if not result:
         return {
@@ -34,6 +39,7 @@ def register_user(username, password):
     # generating token
     token = generate_token(username)
 
+    print("token is : ", token)
     return {
         "msg": "Registered",
         "username": username,

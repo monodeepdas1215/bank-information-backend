@@ -33,10 +33,11 @@ def login():
 def register_new_user():
     try:
 
+        print("register user request")
+
         body = request.json
 
-        import pprint
-        pprint.pprint(body)
+        print(body)
 
         if not body:
             return jsonify({
