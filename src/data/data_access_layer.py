@@ -1,6 +1,8 @@
-from pony.orm import db_session, select
+import traceback
 
-from src.data.db_manager import Banks, Branches
+from pony.orm import db_session, select, commit
+
+from src.data.db_manager import Banks, Branches, Users
 
 
 @db_session
@@ -49,3 +51,22 @@ def get_branch_details(ifsc_code):
     branch = branch.to_dict()
     branch.update({"name": name})
     return branch
+
+
+@db_session
+def get_user_credentials(username):
+    result = select(x for x in Users if x.username == username)[:]
+    if len(result) > 0:
+        return result[0].to_dict()
+    return None
+
+
+@db_session
+def create_user(username, password: bytes):
+    try:
+        Users(username=username, password=password.decode("utf-8"))
+        commit()
+        return True
+    except:
+        traceback.print_exc()
+        return False

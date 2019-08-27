@@ -24,6 +24,11 @@ class Branches(db.Entity):
     state = Optional(str)
 
 
+class Users(db.Entity):
+    username = PrimaryKey(str)
+    password = Required(str)
+
+
 print("Generating mappings")
 db.generate_mapping(create_tables=True)
 print("Mappings generated !!")

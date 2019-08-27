@@ -1,26 +1,59 @@
 import datetime
 import traceback
 
+import bcrypt
 import jwt as jwt
 from flask import request
 from functools import wraps
 
+from src.data.data_access_layer import create_user, get_user_credentials
 from src.utils.config_access import app_config
 
 
-def simple_authentication(auth):
+def authenticate_user(username: str, password: str):
+    # getting user credentials from DB
+    user_credentials = get_user_credentials(username)
 
-    if auth["username"] == app_config['username'] and auth["password"] == app_config['password']:
+    # converting password back to bytes for checking
+    user_credentials["password"] = user_credentials["password"].encode("utf-8")
+
+    if bcrypt.checkpw(password.encode("utf-8"), user_credentials["password"]):
         return True
-    else:
-        return False
+    return False
+
+
+def register_user(username, password):
+    # creating user in db
+    result = create_user(username, encrypt_password(password))
+
+    if not result:
+        return {
+            "msg": "Unable to create new user. I am sorry !!"
+        }
+
+    # generating token
+    token = generate_token(username)
+
+    return {
+        "msg": "Registered",
+        "username": username,
+        "token": token
+    }
+
+
+def encrypt_password(password):
+    # convert it into bytes
+    password = str(password).encode("utf-8")
+    # generate hash
+    return bcrypt.hashpw(password, bcrypt.gensalt())
 
 
 def verify_token(token):
     try:
         payload = jwt.decode(str(token).encode("utf-8"), app_config['secret_key'])
 
-        if payload["sub"] == app_config['username']:
+        result = get_user_credentials(payload["sub"])
+        if result:
             return 1
         return 0
     except jwt.exceptions.DecodeError:
