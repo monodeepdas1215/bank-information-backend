@@ -2,7 +2,7 @@ import traceback
 
 from pony.orm import db_session, select, commit
 
-from src.data.db_manager import Banks, Branches, Users
+from app.data.db_manager import Banks, Branches, Users
 
 
 @db_session

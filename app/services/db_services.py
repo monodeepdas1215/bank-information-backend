@@ -1,4 +1,4 @@
-from src.data.data_access_layer import get_banks, get_branch_details, get_branches_by_name_city
+from app.data.data_access_layer import get_banks, get_branch_details, get_branches_by_name_city
 
 
 def get_paginated_results(data, url, start: int, limit: int):

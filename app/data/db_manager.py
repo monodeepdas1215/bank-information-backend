@@ -1,14 +1,16 @@
 from pony.orm import Database, PrimaryKey, Optional, Set, Required
 
-from src.utils.config_access import app_config
+from app.utils import logger
+from app.utils.config_access import config
 
 db = Database()
-print("connecting to DB")
-db.bind(provider=app_config['provider'], user=app_config['db_user'],
-        password=app_config['db_password'], host=app_config['host'], database=app_config['db'])
+logger.info("connecting to DB")
+db.bind(provider=config['PROVIDER'], user=config['DB_USER'],
+        password=config['DB_PASSWORD'], host=config['HOST'], database=config['DB'])
+
+logger.info("Defining entities")
 
 
-print("Defining entities")
 class Banks(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Optional(str)
@@ -29,6 +31,6 @@ class Users(db.Entity):
     password = Required(str)
 
 
-print("Generating mappings")
+logger.info("Generating mappings")
 db.generate_mapping(create_tables=True)
-print("Mappings generated !!")
+logger.info("Mappings generated !!")

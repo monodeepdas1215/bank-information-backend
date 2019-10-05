@@ -6,8 +6,8 @@ import jwt as jwt
 from flask import request
 from functools import wraps
 
-from src.data.data_access_layer import create_user, get_user_credentials
-from src.utils.config_access import app_config
+from app.data.data_access_layer import create_user, get_user_credentials
+from app.utils.config_access import config
 
 
 def authenticate_user(username: str, password: str):
@@ -51,7 +51,7 @@ def encrypt_password(password):
 
 def verify_token(token):
     try:
-        payload = jwt.decode(str(token).encode("utf-8"), app_config['secret_key'])
+        payload = jwt.decode(str(token).encode("utf-8"), config['SECRET_KEY'])
 
         result = get_user_credentials(payload["sub"])
         if result:
@@ -68,6 +68,10 @@ def verify_token(token):
 def authenticated_access(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+
+        if config['AUTH'] in ["off", "False", "false", "0"]:
+            return f(*args, **kwargs)
+
         authorization_token = request.headers.get('Authorization')
 
         if not authorization_token:
@@ -103,5 +107,5 @@ def generate_token(uname):
     }
 
     # encode the jwt token
-    jwt_token = jwt.encode(payload, app_config['secret_key'], app_config['algorithm'])
+    jwt_token = jwt.encode(payload, config['SECRET_KEY'], config['ALGORITHM'])
     return jwt_token
