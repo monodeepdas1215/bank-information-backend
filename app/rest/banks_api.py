@@ -45,8 +45,6 @@ def get_banks():
 
         # paginate and display
         results = get_paginated_results(banks, request.base_url, int(offset), int(limit))
-        #
-        # logger.info("redis keys:", redis_keys())
 
         return jsonify(results), 200
 
@@ -78,8 +76,6 @@ def get_branches_details():
 
         # get the entire results
         branches = bank_branches_in_city_service(bank_name, city)
-        #
-        # logger.info("redis keys:", redis_keys())
 
         # paginate and display
         results = get_paginated_results(branches, request.base_url, int(offset), int(limit))

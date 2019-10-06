@@ -14,5 +14,3 @@ flask_app.config.update(config)
 # registering the blueprints
 flask_app.register_blueprint(banks_api)
 flask_app.register_blueprint(auth_api)
-
-logger.info("redis keys:", redis_keys())
