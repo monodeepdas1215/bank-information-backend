@@ -29,15 +29,17 @@ def bank_details_service(ifsc):
     # try cache first and return if cache hit
     result = get_bank(ifsc)
     if result:
+        logger.info("from cache")
         return result
 
+    logger.info("from db")
     # else db read and load to cache
     result = get_bank_details_service(ifsc)
     if len(result) == 0:
         return result
 
     # if some data found then start updating cache in background thread and return result
-    cache_update(set_bank, result)
+    cache_update(set_bank, ifsc, result)
 
     # return results
     return result
