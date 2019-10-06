@@ -14,6 +14,9 @@ def authenticate_user(username: str, password: str):
     # getting user credentials from DB
     user_credentials = get_user_credentials(username)
 
+    if not user_credentials:
+        return False
+
     # converting password back to bytes for checking
     user_credentials["password"] = user_credentials["password"].encode("utf-8")
 
