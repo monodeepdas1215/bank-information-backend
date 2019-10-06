@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "6c7e61c1-88fd-4f77-84f4-db60f4526005",
+		"name": "BankInformation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "bank by ifsc",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzA3ODQ1MzgsImlhdCI6MTU3MDM1MjUzOCwic3ViIjoic2Fua2FyMSJ9.4vCFsH3HjSHntql2c0Y0HcEh4j8aO9H4QYOyNrNfzeE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://34.93.32.178:8081/api/banks/?ifsc=APBL0000115",
+					"protocol": "http",
+					"host": [
+						"34",
+						"93",
+						"32",
+						"178"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"banks",
+						""
+					],
+					"query": [
+						{
+							"key": "ifsc",
+							"value": "APBL0000115"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bank by name and city ",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzA3ODI3NTMsImlhdCI6MTU3MDM1MDc1Mywic3ViIjoic2Fua2FyIn0.sRiyTp5TFt34x1eZa7b2c3vXxcVBZ_-YPTg4XO7gFJg"
+					}
+				],
+				"url": {
+					"raw": "http://34.93.32.178:8081/api/banks/branches?city=MUMBAI&bank_name=ABHYUDAYA COOPERATIVE BANK LIMITED&offset=0",
+					"protocol": "http",
+					"host": [
+						"34",
+						"93",
+						"32",
+						"178"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"banks",
+						"branches"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "MUMBAI"
+						},
+						{
+							"key": "bank_name",
+							"value": "ABHYUDAYA COOPERATIVE BANK LIMITED"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"sankar1\", \"password\":\"mahadevan\"}"
+				},
+				"url": {
+					"raw": "http://34.93.32.178:8081/auth/register",
+					"protocol": "http",
+					"host": [
+						"34",
+						"93",
+						"32",
+						"178"
+					],
+					"port": "8081",
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "{{host}}/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "sankar",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "mahadevan",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.93.32.178:8081/auth/login",
+					"protocol": "http",
+					"host": [
+						"34",
+						"93",
+						"32",
+						"178"
+					],
+					"port": "8081",
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "{{host}}/auth/login"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
