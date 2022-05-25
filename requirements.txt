@@ -11,6 +11,6 @@ MarkupSafe==1.1.1
 pony==0.7.10
 psycopg2==2.8.3
 pycparser==2.19
-PyJWT==1.7.1
+PyJWT==2.4.0
 six==1.12.0
 Werkzeug==0.15.5
